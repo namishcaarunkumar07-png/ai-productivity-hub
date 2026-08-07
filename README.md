@@ -1,9 +1,7 @@
-Copy and paste **everything below** directly into your `README.md`:
 
-````markdown
 # AI Workplace Productivity Assistant
 
-> **Work smarter. Plan better. Achieve more.**
+ **Work smarter. Plan better. Achieve more.**
 
 ## 📌 Project Overview
 
@@ -13,7 +11,6 @@ The application provides AI-powered productivity tools that help users generate 
 
 The platform is designed with a clean, modern and professional user interface using a **light purple and light grey** colour scheme.
 
----
 
 ## ✨ Features Implemented
 
@@ -34,7 +31,6 @@ The Smart Email Generator helps users create professional workplace emails quick
 - Copy generated emails.
 - Regenerate content when required.
 
----
 
 ### ✅ AI Task Planner
 
@@ -52,7 +48,6 @@ The AI Task Planner helps users organise their workload and manage their time ef
 - Edit generated schedules.
 - Copy generated plans.
 
----
 
 ### 🔎 AI Research Assistant
 
@@ -70,8 +65,6 @@ The AI Research Assistant helps users understand information quickly and turn re
 - Edit AI-generated research results.
 - Copy or regenerate generated content.
 
----
-
 ## 💻 Modern Dashboard UI
 
 The application includes a modern SaaS-style dashboard designed to provide a professional and user-friendly experience.
@@ -88,7 +81,6 @@ The application includes a modern SaaS-style dashboard designed to provide a pro
 - Modern cards and visual elements.
 - Clear navigation and content organisation.
 
----
 
 ## 🧭 Sidebar Navigation
 
@@ -101,8 +93,6 @@ The application includes a sidebar with navigation options for:
 - ⚙️ Settings
 
 The sidebar provides quick and easy access to all major application features.
-
----
 
 ## 🤖 Structured AI Prompts
 
@@ -133,7 +123,6 @@ Formal, Friendly or Persuasive.
 **Requirements:**  
 Clear, professional, concise and well-structured communication.
 
----
 
 ## ✏️ Editable AI Outputs
 
@@ -149,8 +138,6 @@ Users can:
 
 This ensures users remain in control of the final content.
 
----
-
 ## 🛡️ Responsible AI
 
 The application includes a Responsible AI disclaimer to encourage safe and responsible use of AI.
@@ -162,8 +149,6 @@ AI-generated content may contain inaccurate, incomplete or outdated information.
 Users should avoid entering confidential, private or sensitive information unless their organisation has approved its use with AI systems.
 
 AI should assist human decision-making rather than completely replace human judgement.
-
----
 
 ## 🎨 Design
 
@@ -192,7 +177,6 @@ The application follows a modern SaaS design approach.
 - Responsive design
 - Mobile-friendly components
 
----
 
 ## 🛠️ Technologies and Tools Used
 
@@ -205,7 +189,6 @@ The application follows a modern SaaS design approach.
 - **GitHub** – Used for source code hosting and project management.
 - **AI Prompt Engineering** – Used to create structured prompts for workplace productivity tasks.
 
----
 
 ## 🚀 Setup Instructions
 
@@ -255,7 +238,6 @@ npm run build
 npm run preview
 ```
 
----
 
 ## 📁 Project Structure
 
@@ -277,7 +259,6 @@ ai-workplace-productivity-assistant/
 └── README.md
 ```
 
----
 
 ## 📊 Application Workflow
 
@@ -301,7 +282,6 @@ Review & Edit
 Copy / Save / Regenerate
 ```
 
----
 
 ## 🔮 Future Improvements
 
@@ -325,7 +305,6 @@ Future versions of the application could include:
 * Voice input.
 * AI-powered calendar scheduling.
 
----
 
 ## 🎯 Project Goals
 
@@ -339,13 +318,11 @@ The main goals of the AI Workplace Productivity Assistant are to:
 6. Provide users with practical AI assistance.
 7. Encourage responsible use of AI in the workplace.
 
----
 
 ## 👩‍💻 Author
 
 **Namishca Arunkumar**
 
----
 
 ## 📄 Responsible Use
 
