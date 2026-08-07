@@ -31,7 +31,7 @@ export const Route = createFileRoute("/planner")({
       },
     ],
   }),
-  component: PlannerPage;
+  component: PlannerPage,
 });
 
 type TaskRow = { id: string; title: string; deadline: string; duration: string };
