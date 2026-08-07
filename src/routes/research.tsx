@@ -92,7 +92,11 @@ function ResearchPage() {
             />
           </div>
           <Button onClick={run} disabled={loading}>
-            {loading ? <Loader2 className="size-4 animate-spin" /> : <Sparkles className="size-4" />}
+            {loading ? (
+              <Loader2 className="size-4 animate-spin" />
+            ) : (
+              <Sparkles className="size-4" />
+            )}
             {loading ? "Analysing…" : "Generate summary"}
           </Button>
         </CardContent>

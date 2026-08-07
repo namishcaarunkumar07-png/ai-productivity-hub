@@ -9,9 +9,7 @@ const EmailInput = z.object({
 });
 
 const PlannerInput = z.object({
-  tasks: z.array(
-    z.object({ title: z.string(), deadline: z.string(), duration: z.string() }),
-  ),
+  tasks: z.array(z.object({ title: z.string(), deadline: z.string(), duration: z.string() })),
   range: z.enum(["Daily", "Weekly"]),
 });
 
