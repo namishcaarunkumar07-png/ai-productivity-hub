@@ -78,10 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AI Workplace Productivity Assistant" },
+      { title: "Quiz Game" },
       {
         name: "description",
-        content: "Draft emails, plan your day and summarise research with AI. No signup required.",
+        content: "A fun 10-question quiz about the country you live in.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -93,7 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap",
       },
     ],
   }),
@@ -118,28 +118,17 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 function AppShell() {
-  useSettings();
-
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-background">
-        <AppSidebar />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <header className="sticky top-0 z-10 flex h-14 items-center gap-3 border-b border-border bg-card/80 px-4 backdrop-blur">
-            <SidebarTrigger />
-            <span className="text-sm font-medium text-muted-foreground">
-              AI Workplace Productivity Assistant
-            </span>
-          </header>
-          <main className="flex-1 px-4 py-6 sm:px-8 sm:py-10">
-            <div className="mx-auto w-full max-w-5xl">
-              <Outlet />
-            </div>
-          </main>
-        </div>
-      </div>
+    <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-background px-4 py-10">
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,var(--quiz-glow-primary),transparent_55%),radial-gradient(circle_at_85%_85%,var(--quiz-glow-accent),transparent_55%)]"
+        aria-hidden="true"
+      />
+      <main className="relative flex w-full justify-center">
+        <Outlet />
+      </main>
       <Toaster />
-    </SidebarProvider>
+    </div>
   );
 }
 
