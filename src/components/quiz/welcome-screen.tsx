@@ -13,7 +13,8 @@ export function WelcomeScreen({ onStart }: { onStart: () => void }) {
         START QUIZ
       </Button>
       <p className="mt-4 text-xs text-muted-foreground">
-        10 questions · no account needed · questions are AI-generated, so double-check the fun facts.
+        10 questions · no account needed · questions are AI-generated, so double-check the fun
+        facts.
       </p>
     </QuizCard>
   );

@@ -38,16 +38,16 @@ function QuizPage() {
   }
 
   if (quiz.status === "complete") {
-    return (
-      <ResultScreen score={quiz.score} country={quiz.country} onPlayAgain={quiz.reset} />
-    );
+    return <ResultScreen score={quiz.score} country={quiz.country} onPlayAgain={quiz.reset} />;
   }
 
   if (quiz.status === "error") {
     return (
       <QuizCard className="text-center">
         <QuizTitle />
-        <p className="mt-6 text-base font-semibold text-foreground">We couldn&apos;t build your quiz</p>
+        <p className="mt-6 text-base font-semibold text-foreground">
+          We couldn&apos;t build your quiz
+        </p>
         <p className="mt-2 text-sm text-muted-foreground">{quiz.error}</p>
         <div className="mt-6 grid gap-3">
           <Button size="lg" className="text-base font-semibold" onClick={quiz.retry}>
@@ -103,7 +103,13 @@ function QuizPage() {
         size="lg"
         className={
           "mt-6 w-full text-base font-semibold transition-all duration-200" +
-          (isCountryStep ? (quiz.country ? "" : " opacity-60") : quiz.selected === null ? " opacity-60" : "")
+          (isCountryStep
+            ? quiz.country
+              ? ""
+              : " opacity-60"
+            : quiz.selected === null
+              ? " opacity-60"
+              : "")
         }
         aria-disabled={isCountryStep ? !quiz.country : quiz.selected === null}
         onClick={isCountryStep ? quiz.confirmCountry : quiz.next}
