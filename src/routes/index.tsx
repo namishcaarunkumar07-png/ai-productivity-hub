@@ -1,83 +1,124 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Mail, CalendarClock, BookOpen, ArrowRight } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { Loader2 } from "lucide-react";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Disclaimer } from "@/components/disclaimer";
-import { PageHeader } from "@/components/page-header";
+import { Button } from "@/components/ui/button";
+import { AnswerOptions } from "@/components/quiz/answer-options";
+import { CountryQuestion } from "@/components/quiz/country-question";
+import { QuizCard, QuizTitle } from "@/components/quiz/quiz-card";
+import { QuizProgress } from "@/components/quiz/quiz-progress";
+import { ResultScreen } from "@/components/quiz/result-screen";
+import { WelcomeScreen } from "@/components/quiz/welcome-screen";
+import { TOTAL_QUESTIONS, useQuiz } from "@/hooks/use-quiz";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Dashboard — AI Workplace Productivity Assistant" },
+      { title: "Quiz Game — How well do you know your country?" },
       {
         name: "description",
         content:
-          "A guest-friendly AI workspace: write emails, prioritise tasks and summarise research in seconds.",
+          "Play a fun 10-question quiz about your own country. Pick your country and test your knowledge of its capital, currency, landmarks and culture.",
       },
-      { property: "og:title", content: "AI Workplace Productivity Assistant" },
+      { property: "og:title", content: "Quiz Game — How well do you know your country?" },
       {
         property: "og:description",
-        content: "Write emails, prioritise tasks and summarise research with AI. No signup needed.",
+        content:
+          "A fun 10-question quiz about your country: capital, currency, landmarks, culture and more.",
       },
     ],
   }),
-  component: Dashboard,
+  component: QuizPage,
 });
 
-const tools = [
-  {
-    to: "/email",
-    icon: Mail,
-    title: "Smart Email",
-    description: "Turn a few notes into a polished, on-tone professional email.",
-  },
-  {
-    to: "/planner",
-    icon: CalendarClock,
-    title: "Task Planner",
-    description: "Prioritise your tasks into a clear daily or weekly schedule.",
-  },
-  {
-    to: "/research",
-    icon: BookOpen,
-    title: "Research Assistant",
-    description: "Summarise a topic or article into insights and recommendations.",
-  },
-] as const;
+function QuizPage() {
+  const quiz = useQuiz();
 
-function Dashboard() {
+  if (quiz.status === "welcome") {
+    return <WelcomeScreen onStart={quiz.start} />;
+  }
+
+  if (quiz.status === "complete") {
+    return <ResultScreen score={quiz.score} country={quiz.country} onPlayAgain={quiz.reset} />;
+  }
+
+  if (quiz.status === "error") {
+    return (
+      <QuizCard className="text-center">
+        <QuizTitle />
+        <p className="mt-6 text-base font-semibold text-foreground">
+          We couldn&apos;t build your quiz
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground">{quiz.error}</p>
+        <div className="mt-6 grid gap-3">
+          <Button size="lg" className="text-base font-semibold" onClick={quiz.retry}>
+            TRY AGAIN
+          </Button>
+          <Button variant="outline" size="lg" onClick={quiz.reset}>
+            Start over
+          </Button>
+        </div>
+      </QuizCard>
+    );
+  }
+
+  const isCountryStep = quiz.status === "country" || quiz.status === "loading";
+  const isLoading = quiz.status === "loading";
+
   return (
-    <div>
-      <PageHeader
-        title="Welcome to your AI workspace"
-        description="Three focused assistants for the everyday writing, planning and reading work. No account, nothing saved — everything stays in this browser session."
-      />
+    <QuizCard>
+      <QuizTitle />
 
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {tools.map((tool) => (
-          <Link key={tool.to} to={tool.to} className="group">
-            <Card className="h-full rounded-2xl border-border shadow-sm transition-all group-hover:-translate-y-0.5 group-hover:border-primary/40 group-hover:shadow-md">
-              <CardHeader>
-                <span className="flex size-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <tool.icon className="size-5" />
-                </span>
-                <CardTitle className="mt-4 text-base">{tool.title}</CardTitle>
-                <CardDescription>{tool.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <span className="inline-flex items-center gap-1 text-sm font-medium text-primary">
-                  Open tool
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </CardContent>
-            </Card>
-          </Link>
-        ))}
-      </div>
+      <p className="mt-5 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+        Question {quiz.questionNumber} of {TOTAL_QUESTIONS}
+      </p>
 
-      <div className="mt-10">
-        <Disclaimer />
-      </div>
-    </div>
+      <h2 className="mt-1 text-lg font-bold text-foreground sm:text-xl" aria-live="polite">
+        {isCountryStep ? "Which country are you from?" : quiz.question?.question}
+      </h2>
+
+      {isCountryStep ? (
+        isLoading ? (
+          <div className="mt-6 flex items-center justify-center gap-3 rounded-xl bg-muted/60 py-10 text-sm font-medium text-muted-foreground">
+            <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+            Building your questions about {quiz.country}…
+          </div>
+        ) : (
+          <CountryQuestion country={quiz.country} onSelect={quiz.selectCountry} />
+        )
+      ) : (
+        <AnswerOptions
+          options={quiz.question?.options ?? []}
+          selected={quiz.selected}
+          onSelect={quiz.selectAnswer}
+        />
+      )}
+
+      {quiz.hint ? (
+        <p className="mt-4 text-center text-sm font-medium text-destructive" role="alert">
+          {quiz.hint}
+        </p>
+      ) : null}
+
+      <Button
+        size="lg"
+        className={
+          "mt-6 w-full text-base font-semibold transition-all duration-200" +
+          (isCountryStep
+            ? quiz.country
+              ? ""
+              : " opacity-60"
+            : quiz.selected === null
+              ? " opacity-60"
+              : "")
+        }
+        aria-disabled={isCountryStep ? !quiz.country : quiz.selected === null}
+        onClick={isCountryStep ? quiz.confirmCountry : quiz.next}
+        disabled={isLoading}
+      >
+        {!isCountryStep && quiz.isLastQuestion ? "FINISH QUIZ" : "NEXT QUESTION"}
+      </Button>
+
+      <QuizProgress progress={quiz.progress} />
+    </QuizCard>
   );
 }
