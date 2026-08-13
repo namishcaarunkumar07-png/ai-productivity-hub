@@ -101,15 +101,15 @@ function QuizPage() {
 
       <Button
         size="lg"
-        className="mt-6 w-full text-base font-semibold"
+        className={
+          "mt-6 w-full text-base font-semibold transition-all duration-200" +
+          (isCountryStep ? (quiz.country ? "" : " opacity-60") : quiz.selected === null ? " opacity-60" : "")
+        }
+        aria-disabled={isCountryStep ? !quiz.country : quiz.selected === null}
         onClick={isCountryStep ? quiz.confirmCountry : quiz.next}
         disabled={isLoading}
       >
-        {isCountryStep
-          ? "NEXT QUESTION"
-          : quiz.isLastQuestion
-            ? "FINISH QUIZ"
-            : "NEXT QUESTION"}
+        {!isCountryStep && quiz.isLastQuestion ? "FINISH QUIZ" : "NEXT QUESTION"}
       </Button>
 
       <QuizProgress progress={quiz.progress} />
